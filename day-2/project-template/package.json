@@ -1,0 +1,39 @@
+{
+    "name": "sofia-workshop-cap-invoice-service",
+    "version": "1.0.0",
+    "description": "CAP Invoice Service - Optimized for UI5 Integration",
+    "main": "index.js",
+    "scripts": {
+      "start": "cds run",
+      "watch": "cds watch",
+      "build": "cds build/all --clean",
+      "deploy": "cds deploy --to sqlite",
+      "test": "npm run jest",
+      "jest": "jest"
+    },
+    "dependencies": {
+      "@sap/cds": "^7.5.0",
+      "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+      "express": "^4.18.2",
+      "sqlite3": "^5.1.6"
+    },
+    "devDependencies": {
+      "@sap/cds-dk": "^7.5.0",
+      "jest": "^29.5.0"
+    },
+    "cds": {
+      "requires": {
+        "db": {
+          "kind": "sqlite",
+          "credentials": {
+            "database": "workshop.db"
+          }
+        }
+      },
+      "odata": {
+        "version": "v2"
+      }
+    }
+  }
+  
+  

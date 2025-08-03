@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>UI5 Backend Bridge - Workshop Transition</title>
+    <script src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.m,sap.ui.core"
+            data-sap-ui-theme="sap_fiori_3"
+            data-sap-ui-resourceroots='{"workshop": "./"}'></script>
+</head>
+<body class="sapUiBody">
+    <div id="content"></div>
+    <script>
+        sap.ui.getCore().attachInit(function() {
+            sap.ui.require([
+                "workshop/controller/Main"
+            ], function(MainController) {
+                // App wird hier gestartet
+                new sap.ui.core.ComponentContainer({
+                    name: "workshop",
+                    settings: {
+                        id: "workshop"
+                    }
+                }).placeAt("content");
+            });
+        });
+    </script>
+</body>
+</html>

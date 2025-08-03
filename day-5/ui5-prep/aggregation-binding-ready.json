@@ -1,0 +1,64 @@
+{
+    "description": "JSON-Struktur optimiert für UI5 Aggregation Binding (nachfolgender Workshop)",
+    
+    "invoiceService": {
+        "baseUrl": "http://localhost:4004/invoice",
+        "endpoints": {
+            "invoices": "/Invoices",
+            "customers": "/Customers", 
+            "summary": "/Summary"
+        }
+    },
+    
+    "sampleData": {
+        "invoices": {
+            "d": {
+                "results": [
+                    {
+                        "__metadata": {
+                            "type": "InvoiceService.Invoices",
+                            "uri": "http://localhost:4004/invoice/Invoices(guid'550e8400-e29b-41d4-a716-446655440001')"
+                        },
+                        "ID": "550e8400-e29b-41d4-a716-446655440001",
+                        "invoiceNumber": "INV-2025-001",
+                        "customerName": "Mustermann GmbH & Co. KG",
+                        "amount": "15750.50",
+                        "currency_code": "EUR",
+                        "status": "OPEN",
+                        "dueDate": "/Date(1725408000000)/",
+                        
+                        "_ui5Optimized": {
+                            "formattedAmount": "15.750,50 €",
+                            "statusIcon": "sap-icon://pending",
+                            "statusState": "Warning",
+                            "urgency": "High",
+                            "urgencyColor": "Error",
+                            "daysToDue": 15,
+                            "displayCustomer": "Mustermann GmbH & Co. KG (CUST001)"
+                        }
+                    }
+                ],
+                "__count": 150
+            }
+        },
+        
+        "aggregationBindingExample": {
+            "tablePath": "/d/results",
+            "countPath": "/d/__count",
+            "templateBinding": {
+                "invoiceNumber": "{invoiceNumber}",
+                "customer": "{customerName}",
+                "amount": "{_ui5Optimized/formattedAmount}",
+                "status": "{status}",
+                "statusIcon": "{_ui5Optimized/statusIcon}",
+                "statusState": "{_ui5Optimized/statusState}"
+            }
+        }
+    },
+    
+    "ui5IntegrationTest": {
+        "description": "Test-Code für sofortigen Einsatz im nächsten Workshop",
+        "modelBinding": "var oModel = new sap.ui.model.json.JSONModel('http://localhost:4004/invoice/Invoices');",
+        "aggregationBinding": "oTable.bindItems({ path: '/d/results', template: oItemTemplate, sorter: new sap.ui.model.Sorter('amount', true) });"
+    }
+}
