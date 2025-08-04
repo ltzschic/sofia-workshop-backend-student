@@ -1,0 +1,91 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout">
+
+    <Dialog title="👤 Customer Management - Backend Integration"
+            resizable="true"
+            draggable="true">
+        
+        <content>
+            <layout:VerticalLayout class="sapUiMediumMargin">
+                
+                <!-- Workshop-Kontext Header -->
+                <Panel headerText="🔄 Workshop-Kontext" class="sapUiSmallMarginBottom">
+                    <content>
+                        <Text text="✅ Vorheriger Workshop: Dialog mit Mock-Daten"/>
+                        <Text text="🎯 Heute: Dialog mit Backend-Services"/>
+                    </content>
+                </Panel>
+
+                <!-- Customer-Daten Form -->
+                <layout:SimpleForm
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false">
+                    
+                    <Label text="Customer ID:" />
+                    <Input value="{mockData>id}" enabled="false"/>
+                    
+                    <Label text="Company Name:" />
+                    <Input value="{mockData>name}" placeholder="Wird heute mit Backend-Daten gefüllt"/>
+                    
+                    <Label text="Status:" />
+                    <Select selectedKey="{mockData>status}">
+                        <core:Item key="Active" text="Active"/>
+                        <core:Item key="Prospect" text="Prospect"/>
+                        <core:Item key="Inactive" text="Inactive"/>
+                    </Select>
+                    
+                    <Label text="Revenue:" />
+                    <Input value="{mockData>revenue}" 
+                           description="EUR"
+                           type="Number"/>
+                    
+                    <Label text="Workshop-Note:" />
+                    <TextArea value="{mockData>note}" 
+                              rows="3"
+                              placeholder="Backend-Integration Notizen"/>
+                </layout:SimpleForm>
+
+                <!-- Backend-Integration Status -->
+                <Panel headerText="🌐 Backend-Integration Status" class="sapUiSmallMarginTop">
+                    <content>
+                        <layout:VerticalLayout>
+                            <Text text="Datenquelle: {backendStatus>/dataSource}"/>
+                            <Text text="Letzter Backend-Call: {backendStatus>/lastBackendCall}" 
+                                  visible="{= ${backendStatus>/lastBackendCall} !== null}"/>
+                            <Text text="🔄 Heute: OData-Service Integration" 
+                                  visible="{= ${backendStatus>/dataSource} === 'mock'}"/>
+                        </layout:VerticalLayout>
+                    </content>
+                </Panel>
+
+            </layout:VerticalLayout>
+        </content>
+
+        <buttons>
+            <Button text="💾 Speichern (Backend)" 
+                    type="Emphasized" 
+                    press="onSaveCustomerToBackend"/>
+            <Button text="🔄 Refresh von Backend" 
+                    type="Default" 
+                    press="onRefreshFromBackend"/>
+            <Button text="❌ Abbrechen" 
+                    press="onCancelCustomerDialog"/>
+        </buttons>
+    </Dialog>
+
+</core:FragmentDefinition>

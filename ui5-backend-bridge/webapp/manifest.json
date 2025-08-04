@@ -1,0 +1,56 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+      "id": "workshop.bridge",
+      "type": "application",
+      "i18n": "i18n/i18n.properties",
+      "title": "{{appTitle}}",
+      "description": "{{appDescription}}",
+      "applicationVersion": {
+        "version": "1.0.0"
+      },
+      "dataSources": {
+        "mockService": {
+          "uri": "/mock-data/",
+          "type": "JSON"
+        }
+      }
+    },
+    "sap.ui": {
+      "technology": "UI5",
+      "icons": {
+        "icon": "sap-icon://work-history"
+      },
+      "deviceTypes": {
+        "desktop": true,
+        "tablet": true,
+        "phone": true
+      }
+    },
+    "sap.ui5": {
+      "flexEnabled": false,
+      "dependencies": {
+        "minUI5Version": "1.60.0",
+        "libs": {
+          "sap.ui.core": {},
+          "sap.m": {},
+          "sap.ui.layout": {}
+        }
+      },
+      "models": {
+        "i18n": {
+          "type": "sap.ui.model.resource.ResourceModel",
+          "settings": {
+            "bundleName": "workshop.bridge.i18n.i18n"
+          }
+        }
+      },
+      "rootView": {
+        "viewName": "workshop.bridge.view.Main",
+        "type": "XML",
+        "async": true,
+        "id": "app"
+      }
+    }
+  }
+  

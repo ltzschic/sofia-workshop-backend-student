@@ -1,0 +1,186 @@
+/* Workshop Bridge Application Styles */
+
+/* Workshop-Status Indikatoren */
+.workshop-status-indicator {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 4px;
+}
+
+.status-completed {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-current {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.status-upcoming {
+    background-color: #e7f3ff;
+    color: #004085;
+    border: 1px solid #b3d7ff;
+}
+
+/* Backend-Integration Styles */
+.backend-integration-panel {
+    border-left: 4px solid #0070d2;
+    background-color: #f8f9fa;
+}
+
+.mock-data-panel {
+    border-left: 4px solid #ffa500;
+    background-color: #fff8e1;
+}
+
+.data-source-indicator {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+.data-source-mock {
+    background-color: #ffa500;
+    color: white;
+}
+
+.data-source-backend {
+    background-color: #28a745;
+    color: white;
+}
+
+.data-source-odata {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Workshop-Übergang Highlighting */
+.workshop-transition {
+    background: linear-gradient(90deg, #ffa500 0%, #0070d2 50%, #28a745 100%);
+    background-size: 200% 100%;
+    animation: workshop-gradient 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+}
+
+@keyframes workshop-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* UI5-Backend Bridge Specific */
+.bridge-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.service-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.service-status-card {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.service-status-card.connected {
+    border-left: 4px solid #28a745;
+}
+
+.service-status-card.connecting {
+    border-left: 4px solid #ffc107;
+}
+
+.service-status-card.disconnected {
+    border-left: 4px solid #dc3545;
+}
+
+/* Code-Highlighting für Console-Ausgaben */
+.console-output {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Courier New', monospace;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 8px 0;
+    overflow-x: auto;
+}
+
+.console-output .success {
+    color: #4caf50;
+}
+
+.console-output .error {
+    color: #f44336;
+}
+
+.console-output .warning {
+    color: #ff9800;
+}
+
+.console-output .info {
+    color: #2196f3;
+}
+
+/* Responsive Design für Workshop-Präsentation */
+@media (max-width: 768px) {
+    .service-status-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .bridge-container {
+        padding: 10px;
+    }
+}
+
+/* Workshop-spezifische Animationen */
+.loading-backend {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Integration-Status Badges */
+.integration-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.integration-badge.ready {
+    background-color: #28a745;
+    color: white;
+}
+
+.integration-badge.pending {
+    background-color: #ffc107;
+    color: black;
+}
+
+.integration-badge.error {
+    background-color: #dc3545;
+    color: white;
+}

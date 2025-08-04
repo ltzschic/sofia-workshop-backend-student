@@ -5,18 +5,11 @@
     "main": "webapp/index.html",
     "scripts": {
         "start": "ui5 serve --open index.html",
-        "build": "ui5 build --dest dist",
-        "lint": "eslint webapp/"
+        "build": "ui5 build --dest dist"
     },
-    
-        "devDependencies": {
-          "@ui5/cli": "^4.0.22",
-          "@sap/ui5-builder-webide-extension": "^1.1.0"
-        },
-        "scripts": {
-          "start": "ui5 serve --open index.html",
-          "build": "ui5 build --dest dist"
-        },      
+    "devDependencies": {
+        "@sap/ui5-builder-webide-extension": "^1.1.0"
+    },
     "ui5": {
         "dependencies": [
             "@sap/ui5-builder-webide-extension"

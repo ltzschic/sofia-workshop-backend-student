@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Sofia - UI5 Backend Bridge</title>
+    
+    <!-- UI5 Bootstrap -->
+    <script 
+        id="sap-ui-bootstrap"
+        src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_fiori_3"
+        data-sap-ui-libs="sap.m,sap.ui.layout,sap.f,sap.ui.core"
+        data-sap-ui-resourceroots='{
+            "workshop.bridge": "./"
+        }'
+        data-sap-ui-compatVersion="edge"
+        data-sap-ui-async="true"
+        data-sap-ui-frameOptions="trusted">
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <!-- Workshop-spezifische Meta-Tags -->
+    <meta name="description" content="Workshop Sofia - UI5 Frontend zu Backend Integration Bridge">
+    <meta name="keywords" content="UI5, SAP BTP, OData, CAP, Workshop">
+    <meta name="author" content="Workshop Sofia Team">
+    
+    <!-- Workshop-Status für Debugging -->
+    <script>
+        window.WORKSHOP_CONFIG = {
+            name: "Sofia Backend Integration",
+            day: 1,
+            phase: "Frontend-to-Backend Bridge",
+            previousWorkshop: "UI5 Frontend (Nested Views, Dialogs, Fragments)",
+            currentFocus: "Backend Integration Setup",
+            nextWorkshop: "UI5 Aggregation Binding"
+        };
+    </script>
+</head>
+
+<body class="sapUiBody" id="content">
+    
+    <!-- Loading-Indicator für Workshop -->
+    <div id="workshop-loading" style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 1000;
+    ">
+        <div style="font-size: 24px; color: #0070d2; margin-bottom: 16px;">
+            🚀 Workshop Sofia
+        </div>
+        <div style="font-size: 16px; color: #666;">
+            UI5 ↔ Backend Bridge wird geladen...
+        </div>
+    </div>
+
+    <script>
+        sap.ui.getCore().attachInit(function() {
+            console.log("🚀 Workshop Sofia - UI5 Backend Bridge");
+            console.log("=====================================");
+            console.log("Workshop-Konfiguration:", window.WORKSHOP_CONFIG);
+            
+            // Loading-Indicator entfernen
+            var loadingDiv = document.getElementById('workshop-loading');
+            if (loadingDiv) {
+                loadingDiv.style.display = 'none';
+            }
+
+            // Component initialisieren
+            sap.ui.require([
+                "sap/ui/core/ComponentSupport"
+            ], function(ComponentSupport) {
+                ComponentSupport.run();
+            });
+
+            // Fallback: Direkte View-Erstellung falls Component nicht verfügbar
+            setTimeout(function() {
+                if (!document.querySelector('[data-sap-ui-component]')) {
+                    console.log("📋 Fallback: Direkte View-Erstellung");
+                    
+                    sap.ui.require([
+                        "sap/ui/core/mvc/XMLView"
+                    ], function(XMLView) {
+                        XMLView.create({
+                            viewName: "workshop.bridge.view.Main"
+                        }).then(function(oView) {
+                            oView.placeAt("content");
+                        });
+                    });
+                }
+            }, 1000);
+        });
+
+        // Workshop-Debugging Helper
+        window.workshopDebug = {
+            showConfig: function() {
+                console.table(window.WORKSHOP_CONFIG);
+            },
+            
+            checkUI5: function() {
+                console.log("UI5 Version:", sap.ui.version);
+                console.log("Loaded Libraries:", Object.keys(sap.ui.getCore().getLoadedLibraries()));
+            },
+            
+            testBackendReadiness: function() {
+                console.log("🔍 Backend Readiness Check:");
+                console.log("✅ BTP Account:", "Wird heute konfiguriert");
+                console.log("🔄 OData Services:", "Wird heute implementiert");
+                console.log("⚙️ CAP Services:", "Wird ab Tag 2 entwickelt");
+            }
+        };
+
+        console.log("💡 Workshop-Debug verfügbar: workshopDebug.showConfig()");
+    </script>
+
+</body>
+</html>
