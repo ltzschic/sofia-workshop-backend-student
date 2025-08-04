@@ -1,0 +1,15 @@
+{
+    "name": "ui5-backend-bridge",
+    "version": "1.0.0",
+    "description": "Bridge project from previous UI5 workshop",
+    "main": "webapp/index.html",
+    "scripts": {
+      "start": "ui5 serve -o",
+      "build": "ui5 build",
+      "lint": "eslint webapp"
+    },
+    "devDependencies": {
+      "@ui5/cli": "^3.0.0"
+    }
+  }
+  

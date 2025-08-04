@@ -1,7 +1,13 @@
-specVersion: "3.0"
+# ui5.yaml - KORRIGIERTE Version
+specVersion: '3.0'
 metadata:
   name: ui5-backend-bridge
+  # VERSION ENTFERNT - nicht erlaubt in specVersion 3.0+
 type: application
+resources:
+  configuration:
+    paths:
+      webapp: webapp
 framework:
   name: SAPUI5
   version: "1.120.0"
@@ -9,4 +15,4 @@ framework:
     - name: sap.ui.core
     - name: sap.m
     - name: sap.ui.layout
-    - name: sap.f
+

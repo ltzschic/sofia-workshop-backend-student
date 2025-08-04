@@ -1,0 +1,25 @@
+{
+  "invoices": [
+    {
+      "id": "1",
+      "invoiceNumber": "INV-2025-001",
+      "customerName": "Firma Mueller GmbH",
+      "amount": 15750.50,
+      "status": "Offen",
+      "date": "2025-08-04"
+    },
+    {
+      "id": "2",
+      "invoiceNumber": "INV-2025-002", 
+      "customerName": "Tech Solutions AG",
+      "amount": 8900.00,
+      "status": "Bezahlt",
+      "date": "2025-08-04"
+    }
+  ],
+  "summary": {
+    "totalAmount": 24650.50,
+    "openAmount": 15750.50,
+    "paidAmount": 8900.00
+  }
+}

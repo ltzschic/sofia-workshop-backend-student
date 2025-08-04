@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21"
-  }
-}

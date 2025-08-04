@@ -1,0 +1,23 @@
+<mvc:View
+    controllerName="workshop.ui5.bridge.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    
+    <Page title="UI5 Backend Bridge - Workshop Tag 1">
+        <content>
+            <MessageStrip text="✅ UI5 Projekt erfolgreich geladen! Backend Integration kann beginnen." 
+                         type="Success" 
+                         class="sapUiMediumMargin"/>
+            
+            <Panel headerText="Nächste Schritte" class="sapUiMediumMargin">
+                <content>
+                    <VBox>
+                        <Text text="1. BTP Cockpit Zugang testen"/>
+                        <Text text="2. OData Service Calls implementieren"/>  
+                        <Text text="3. Mock Daten durch Backend ersetzen"/>
+                    </VBox>
+                </content>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>
