@@ -3,32 +3,8 @@
   "sap.app": {
     "id": "workshop.ui5.bridge",
     "type": "application",
-    "applicationVersion": {
-      "version": "1.0.0"
-    },
     "title": "UI5 to Backend Bridge",
-    "description": "Transition project from UI5 frontend to backend services",
-    "dataSources": {
-      "mainService": {
-        "uri": "model/mockData.json",
-        "type": "JSON"
-      }
-    }
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "sap-icon://task"
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    }
+    "description": "Transition project from UI5 frontend to backend services"
   },
   "sap.ui5": {
     "dependencies": {
@@ -43,8 +19,31 @@
       "": {
         "dataSource": "mainService",
         "type": "sap.ui.model.json.JSONModel"
+      },
+      "odata": {
+        "dataSource": "odataService",
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "OneWay",
+          "defaultCountMode": "Request"
+        }
+      }
+    }
+  },
+  "sap.app/dataSources": {
+    "mainService": {
+      "uri": "model/mockData.json",
+      "type": "JSON"
+    },
+    "odataService": {
+      "uri": "https://services.odata.org/V2/Northwind/Northwind.svc/",
+      "type": "OData",
+      "settings": {
+        "annotations": [],
+        "localUri": "",
+        "odataVersion": "2.0"
       }
     }
   }
 }
-  

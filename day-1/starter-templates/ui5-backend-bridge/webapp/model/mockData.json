@@ -6,7 +6,8 @@
       "customerName": "Firma Mueller GmbH",
       "amount": 15750.50,
       "status": "Offen",
-      "date": "2025-08-04"
+      "date": "2025-08-04",
+      "description": "Beratung" 
     },
     {
       "id": "2",
@@ -14,7 +15,8 @@
       "customerName": "Tech Solutions AG",
       "amount": 8900.00,
       "status": "Bezahlt",
-      "date": "2025-08-04"
+      "date": "2025-08-04",
+      "description": "Beratung" 
     }
   ],
   "summary": {

@@ -1,23 +1,109 @@
 <mvc:View
     controllerName="workshop.ui5.bridge.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
     
-    <Page title="UI5 Backend Bridge - Workshop Tag 1">
+    <Page title="Rechnungsübersicht - Backend Integration AKTIV">
         <content>
-            <MessageStrip text="✅ UI5 Projekt erfolgreich geladen! Backend Integration kann beginnen." 
-                         type="Success" 
-                         class="sapUiMediumMargin"/>
-            
-            <Panel headerText="Nächste Schritte" class="sapUiMediumMargin">
+            <!-- OData Test Panel -->
+            <Panel headerText="Backend Integration Tests" class="sapUiMediumMargin" expandable="true">
                 <content>
-                    <VBox>
-                        <Text text="1. BTP Cockpit Zugang testen"/>
-                        <Text text="2. OData Service Calls implementieren"/>  
-                        <Text text="3. Mock Daten durch Backend ersetzen"/>
-                    </VBox>
+                    <HBox class="sapUiTinyMargin">
+                        <Button text="Backend Daten laden" 
+                                icon="sap-icon://refresh"
+                                press="onLoadFromBackend"
+                                type="Emphasized"
+                                class="sapUiTinyMarginEnd"/>
+                        
+                        <Button text="OData Direct Binding" 
+                                icon="sap-icon://chain-link"
+                                press="onBindTableToOData"
+                                type="Attention"
+                                class="sapUiTinyMarginEnd"/>
+                        
+                        <Button text="Advanced OData Test" 
+                                icon="sap-icon://lab"
+                                press="onTestAdvancedOData"
+                                type="Transparent"
+                                class="sapUiTinyMarginEnd"/>
+                    </HBox>
+                    
+                    <!-- Status Anzeige -->
+                    <MessageStrip 
+                        text="OData Service: Northwind Test-Service (services.odata.org)" 
+                        type="Information"
+                        showIcon="true"
+                        class="sapUiSmallMargin"/>
                 </content>
             </Panel>
+
+            <!-- Bestehende Summary und Tabelle bleiben unverändert -->
+            <Panel headerText="Zusammenfassung" class="sapUiMediumMargin">
+                <content>
+                    <HBox>
+                        <VBox class="sapUiMediumMarginEnd">
+                            <Text text="Gesamt:" class="sapUiTinyMarginBottom"/>
+                            <Text text="{/summary/totalAmount} €" class="sapThemeHighlight-asColor"/>
+                        </VBox>
+                        <VBox class="sapUiMediumMarginEnd">
+                            <Text text="Offen:" class="sapUiTinyMarginBottom"/>
+                            <Text text="{/summary/openAmount} €" class="sapUiErrorColor"/>
+                        </VBox>
+                        <VBox>
+                            <Text text="Bezahlt:" class="sapUiTinyMarginBottom"/>
+                            <Text text="{/summary/paidAmount} €" class="sapUiSuccessColor"/>
+                        </VBox>
+                    </HBox>
+                </content>
+            </Panel>
+
+            <!-- Erweiterte Rechnungstabelle -->
+            <Table id="invoiceTable" 
+                   items="{/invoices}"
+                   headerText="Rechnungen/Produkte ({/invoices/length})"
+                   class="sapUiMediumMargin"
+                   mode="SingleSelect">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Rechnungen/Produkte ({/invoices/length})"/>
+                        <ToolbarSpacer/>
+                        <Button text="Neue Rechnung" 
+                                icon="sap-icon://add"
+                                press="onAddInvoice"
+                                type="Emphasized"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Nummer"/>
+                    </Column>
+                    <Column>
+                        <Text text="Kunde/Produkt"/>
+                    </Column>
+                    <Column>
+                        <Text text="Betrag/Preis"/>
+                    </Column>
+                    <Column>
+                        <Text text="Status"/>
+                    </Column>
+                    <Column>
+                        <Text text="Aktionen"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem press="onShowDetails">
+                        <Text text="{invoiceNumber}"/>
+                        <Text text="{customerName}"/>
+                        <Text text="{amount} €"/>
+                        <ObjectStatus text="{status}" 
+                                     state="{path: 'status', formatter: '.formatStatus'}"/>
+                        <Button icon="sap-icon://detail-view" 
+                                press="onShowDetails"
+                                tooltip="Details anzeigen"/>
+                    </ColumnListItem>
+                </items>
+            </Table>
         </content>
     </Page>
 </mvc:View>
