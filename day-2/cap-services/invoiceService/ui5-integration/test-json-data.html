@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CAP Service Test in BAS</title>
+    <script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.m,sap.ui.core"
+            data-sap-ui-theme="sap_horizon"
+            data-sap-ui-async="true"></script>
+</head>
+<body class="sapUiBody">
+    <div id="content"></div>
+    <script>
+        sap.ui.require([
+            "sap/m/List",
+            "sap/m/StandardListItem",
+            "sap/m/MessageToast",
+            "sap/ui/model/json/JSONModel"
+        ], function(List, StandardListItem, MessageToast, JSONModel) {
+            
+            // BAS-spezifische URL (angepasst an Ihre Port-Konfiguration)
+            var serviceUrl = window.location.protocol + "//" + 
+                           window.location.hostname.replace("port8080", "port4004") + 
+                           "/invoice/Invoices";
+            
+            // Alternativ: Direkte URL falls obige nicht funktioniert
+            // var serviceUrl = "https://port4004-workspaces-ws-m6ghy.us10.applicationstudio.cloud.sap/invoice/Invoices";
+            
+            console.log("Lade Daten von:", serviceUrl);
+            
+            // JSON Model für einfachere Handhabung in BAS
+            var oModel = new JSONModel();
+            
+            // Daten laden mit Fehlerbehandlung
+            oModel.loadData(serviceUrl, null, true, "GET", false, false, {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            });
+            
+            oModel.attachRequestCompleted(function(oEvent) {
+                if (oEvent.getParameter("success")) {
+                    MessageToast.show("Daten erfolgreich geladen!");
+                    console.log("Daten:", oModel.getData());
+                } else {
+                    MessageToast.show("Fehler beim Laden der Daten!");
+                    console.error("Fehler beim Laden:", oEvent);
+                }
+            });
+            
+            // Liste erstellen
+            var oList = new List({
+                headerText: "Rechnungen aus CAP Service (BAS Test)",
+                items: {
+                    path: "/value",
+                    template: new StandardListItem({
+                        title: "{invoiceNumber}",
+                        description: "Kunde: {customerID} | Betrag: {formattedAmount}",
+                        info: "{status}",
+                        infoState: {
+                            path: "status",
+                            formatter: function(status) {
+                                switch(status) {
+                                    case "PAID": return "Success";
+                                    case "PENDING": return "Warning";
+                                    case "OVERDUE": return "Error";
+                                    default: return "None";
+                                }
+                            }
+                        }
+                    })
+                }
+            });
+            
+            oList.setModel(oModel);
+            oList.placeAt("content");
+        });
+    </script>
+</body>
+</html>

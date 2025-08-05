@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>UI5 CAP Integration Test</title>
+    <script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.m,sap.ui.core"
+            data-sap-ui-theme="sap_horizon"></script>
+</head>
+<body class="sapUiBody">
+    <div id="content"></div>
+    <script>
+        sap.ui.require([
+            "sap/m/Panel",
+            "sap/m/Button", 
+            "sap/m/List",
+            "sap/m/StandardListItem",
+            "sap/m/MessageToast",
+            "sap/ui/model/json/JSONModel"
+        ], function(Panel, Button, List, StandardListItem, MessageToast, JSONModel) {
+            
+            // Panel für Test-Interface
+            var oPanel = new Panel({
+                headerText: "CAP Service Integration Test",
+                expandable: false,
+                content: [
+                    new Button({
+                        text: "🔄 CAP Service testen",
+                        type: "Emphasized",
+                        press: function() {
+                            testCAPService();
+                        }
+                    })
+                ]
+            });
+            
+            // Liste für Ergebnisse
+            var oList = new List({
+                headerText: "Rechnungen aus CAP Service",
+                visible: false
+            });
+            
+            function testCAPService() {
+                MessageToast.show("Teste CAP Service...");
+                
+                var oModel = new JSONModel();
+                var serviceUrl = "https://port4004-workspaces-ws-m6ghy.us10.applicationstudio.cloud.sap/invoice/Invoices";
+                
+                oModel.loadData(serviceUrl);
+                
+                oModel.attachRequestCompleted(function(oEvent) {
+                    if (oEvent.getParameter("success")) {
+                        var data = oModel.getData();
+                        
+                        MessageToast.show("✅ Service erfolgreich getestet!");
+                        
+                        // Liste mit Daten füllen
+                        oList.bindItems({
+                            path: "/value",
+                            template: new StandardListItem({
+                                title: "{invoiceNumber}",
+                                description: "Status: {status} | Betrag: {formattedAmount}",
+                                info: "{urgency}",
+                                type: "Navigation"
+                            })
+                        });
+                        
+                        oList.setModel(oModel);
+                        oList.setVisible(true);
+                        
+                    } else {
+                        MessageToast.show("❌ Fehler beim Service-Aufruf");
+                    }
+                });
+            }
+            
+            // UI aufbauen
+            oPanel.placeAt("content");
+            oList.placeAt("content");
+        });
+    </script>
+</body>
+</html>

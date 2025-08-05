@@ -1,0 +1,4 @@
+ID,customerNumber,name,email,country,displayName,flagIcon,riskLevel
+550e8400-e29b-41d4-a716-446655440001,CUST-001,Max Mustermann GmbH,max@mustermann.de,DE,Max Mustermann GmbH (CUST-001),sap-icon://flag,Low
+550e8400-e29b-41d4-a716-446655440002,CUST-002,Tech Solutions AG,info@techsolutions.ch,CH,Tech Solutions AG (CUST-002),sap-icon://flag,Medium
+550e8400-e29b-41d4-a716-446655440003,CUST-003,Global Industries Ltd,contact@global.co.uk,GB,Global Industries Ltd (CUST-003),sap-icon://flag,High

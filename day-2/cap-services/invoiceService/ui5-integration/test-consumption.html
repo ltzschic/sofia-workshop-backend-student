@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>UI5 CAP Service Test</title>
+    <script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.m,sap.ui.core"
+            data-sap-ui-theme="sap_horizon"
+            data-sap-ui-resourceroots='{"test": "./"}'></script>
+</head>
+<body class="sapUiBody">
+    <div id="content"></div>
+    <script>
+        sap.ui.require([
+            "sap/m/Table",
+            "sap/m/Column", 
+            "sap/m/Text",
+            "sap/m/ObjectStatus",
+            "sap/ui/model/odata/v4/ODataModel",
+            "sap/m/ColumnListItem"
+        ], function(Table, Column, Text, ObjectStatus, ODataModel, ColumnListItem) {
+            
+            // OData v4 Model für CAP-Services
+            const oModel = new ODataModel({
+                serviceUrl: "http://localhost:4004/invoice/",
+                synchronizationMode: "None"
+            });
+            
+            // UI5-Tabelle für Invoice-Liste
+            const oTable = new Table({
+                headerText: "Rechnungen (aus CAP-Service)",
+                columns: [
+                    new Column({ header: new Text({text: "Rechnungsnr."}) }),
+                    new Column({ header: new Text({text: "Kunde"}) }),
+                    new Column({ header: new Text({text: "Betrag"}) }),
+                    new Column({ header: new Text({text: "Status"}) }),
+                    new Column({ header: new Text({text: "Dringlichkeit"}) })
+                ]
+            });
+            
+            // Template für Tabellenzeilen
+            const oTemplate = new ColumnListItem({
+                cells: [
+                    new Text({text: "{invoiceNumber}"}),
+                    new Text({text: "{customerDisplayName}"}),
+                    new Text({text: "{formattedAmount}"}),
+                    new ObjectStatus({
+                        text: "{status}",
+                        state: "{statusColor}",
+                        icon: "{statusIcon}"
+                    }),
+                    new ObjectStatus({
+                        text: "{urgency}",
+                        state: {
+                            path: 'urgency',
+                            formatter: function(urgency) {
+                                switch(urgency) {
+                                    case 'High': return 'Error';
+                                    case 'Medium': return 'Warning';
+                                    default: return 'Success';
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+            
+            // Model setzen und Daten binden
+            oTable.setModel(oModel);
+            oTable.bindItems({
+                path: "/InvoiceListView",
+                template: oTemplate
+            });
+            
+            // Tabelle anzeigen
+            oTable.placeAt("content");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Direkter CAP Service Test (ohne Webserver)</title>
+</head>
+<body>
+    <h1>CAP Service Test - Direkt aus BAS</h1>
+    <button onclick="testService()">🔄 Service testen</button>
+    <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;"></div>
+    
+    <script>
+        async function testService() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>⏳ Teste CAP Service...</p>';
+            
+            try {
+                // Ihre BAS-spezifische CAP-Service URL
+                const serviceUrl = 'https://port4004-workspaces-ws-m6ghy.us10.applicationstudio.cloud.sap/invoice/Invoices';
+                
+                console.log('Teste Service:', serviceUrl);
+                
+                const response = await fetch(serviceUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    resultDiv.innerHTML = `
+                        <h2>✅ Service funktioniert!</h2>
+                        <p><strong>Status:</strong> ${response.status} ${response.statusText}</p>
+                        <p><strong>Gefundene Rechnungen:</strong> ${data.value ? data.value.length : 0}</p>
+                        <h3>Beispiel-Daten:</h3>
+                        <div style="background: #f5f5f5; padding: 10px; max-height: 300px; overflow-y: auto;">
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                console.error('Fehler:', error);
+                resultDiv.innerHTML = `
+                    <h2>❌ Fehler beim Service-Aufruf</h2>
+                    <p><strong>Fehler:</strong> ${error.message}</p>
+                    <h3>Checkliste:</h3>
+                    <ul>
+                        <li>✓ Läuft der CAP-Service? <code>cds watch</code></li>
+                        <li>✓ Ist Port 4004 in BAS exposed?</li>
+                        <li>✓ Service-URL korrekt: <a href="https://port4004-workspaces-ws-m6ghy.us10.applicationstudio.cloud.sap/invoice/" target="_blank">Hier testen</a></li>
+                    </ul>
+                `;
+            }
+        }
+        
+        // Automatischer Test beim Laden
+        window.onload = function() {
+            testService();
+        };
+    </script>
+</body>
+</html>
