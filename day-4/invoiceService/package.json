@@ -1,0 +1,32 @@
+{
+  "name": "invoice-service",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cds": "^8",
+    "@cap-js/sqlite": "^1",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^8"
+  },
+  "scripts": {
+    "start": "cds serve",
+    "watch": "cds watch"
+  },
+  "cds": {
+    "requires": {
+      "database": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db.sqlite"
+        }
+      }
+    },
+    "features": {
+      "preserve_computed": true
+    }
+  }
+}
+
+  
+  
